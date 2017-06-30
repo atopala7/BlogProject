@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebApplication4.Models.Post>
+
+@{
+    ViewBag.Title = "Comments";
+}
+
+<h2>Comments on @ViewBag.UserName's @ViewBag.PostTitle</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostUser.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Message)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostUser.UserName)
+        </td>
+        <td>
+            @item.Message.Substring(0, item.Message.IndexOf('\n') > 0 ? item.Message.IndexOf('\n') : item.Message.Length)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+
+<br />
+@Html.ActionLink("Back to post", "Details", "Blogs", new { id = ViewBag.PostId }, null)

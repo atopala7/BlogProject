@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Blog Application</h1>
+    <p class="lead">This is the splash page.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Select an option</h2>
+        <p>
+            @Html.ActionLink("View All Blogs", "ListBloggers")
+        </p>
+        <p>
+            @Html.ActionLink("Login as BLOGGER", "Login", "Account", new { returnUrl = "~/Blogs/" }, null)
+        </p>
+        <p>
+            @Html.ActionLink("Login as COMMENTER", "Login", "Account", new { returnUrl = "~/Home/ListBloggers" }, null)
+        </p>
+        <p>
+            @Html.ActionLink("REGISTER", "Register", "Account")
+        </p>
+        <br />
+        <p>
+            @Html.ActionLink("Login as administrator", "Login", "Account", new { returnUrl = "~/Home/ListBloggers" }, null)
+        </p>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<WebApplication4.Models.Post>
+
+@{
+    ViewBag.Title = "Blog";
+}
+
+<h2>@ViewBag.UserName's Blog</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Message)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @if (!item.BlogPost && item.Parent != null)
+            {
+                @Html.Raw("~response to ")
+                @item.Parent.PostUser.UserName
+            }
+            else
+            {
+                @item.Title
+            }
+        </td>
+        <td>
+            @item.Message.Substring(0, item.Message.IndexOf('\n') > 0 ? item.Message.IndexOf('\n') : item.Message.Length)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+@Html.ActionLink("Back to list of bloggers", "ListBloggers", "Home")

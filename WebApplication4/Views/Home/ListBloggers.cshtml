@@ -1,0 +1,26 @@
+﻿@model IEnumerable<WebApplication4.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "List of Bloggers";
+}
+
+<h2>List of Bloggers</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <a href="~/Blogs/Display?uname=@item.UserName">
+                @Html.DisplayFor(modelItem => item.UserName)
+            </a>
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebApplication4.Models.Post>
+
+@{
+    ViewBag.Title = "Blogger Home Page";
+}
+
+<h2>Blogger Home Page</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Date posted
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Message
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.Date
+        </td>
+        <td>
+            @if (!item.BlogPost && item.Parent != null)
+            {
+                @Html.Raw("~response to ")
+                @item.Parent.PostUser.UserName
+            }
+            else
+            {
+                @item.Title
+            }  
+        </td>
+        <td>
+            @item.Message.Substring(0, item.Message.IndexOf('\n') > 0 ? item.Message.IndexOf('\n') : item.Message.Length)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+
+<br />
+
+<a href="~/Blogs/Publish/@ViewBag.Id">Publish new post</a>

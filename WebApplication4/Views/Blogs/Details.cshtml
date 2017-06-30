@@ -1,0 +1,73 @@
+﻿@model WebApplication4.Models.Post
+
+@{
+    ViewBag.Title = "Post details";
+}
+
+<h2>@ViewBag.UserName's @ViewBag.PostTitle</h2>
+
+<div>
+    <h4>Post</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            Post Type
+        </dt>
+        <dd>
+            @if (Model.BlogPost)
+            {
+                @Html.Raw("Blog Post")
+            }
+            else
+            {
+                @Html.Raw("Comment")
+            }
+        </dd>
+
+        @if (Model.BlogPost)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+
+        <dd>
+            @Html.TextAreaFor(model => model.Message, new { @readonly = "readonly" })
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (Model.BlogPost) { 
+        @Html.ActionLink("Back to List", "Display", "Blogs", new { uname = ViewBag.UserName }, null)
+    }
+    else
+    {
+        @Html.ActionLink("Back to Comments", "ViewComments", "Blogs", new { id = ViewBag.ParentId }, null)
+    }
+
+    @Html.ActionLink("View comments", "ViewComments", new { id = Model.Id })
+    @Html.ActionLink("Post a comment", "PostComment", new { id = Model.Id })
+
+    @if (ViewBag.delete)
+    {
+        <br />
+        @Html.ActionLink("DELETE POST", "Delete", new { id = Model.Id })
+    }
+</p>
